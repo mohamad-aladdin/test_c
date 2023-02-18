@@ -66,107 +66,399 @@ void clearConsole()
     system("clear");
 }
 
-void print(string color, string text)
+void print(string color, string text, bool with_end)
 {
-    cout << color << text << WHITE << "\n";
+    if (with_end)
+    {
+        cout << color << text << WHITE << "\n";
+    }
+    else
+    {
+        cout << color << text << WHITE;
+    }
 }
 
 void serchRoom(int room_number, int reds_number, int status)
 {
-    int num = 0;
     if (reds_number >= 1 && reds_number <= 4)
     {
         if (status >= 1 && status <= 3)
         {
 
-            for (int i = 0; i <= -1; i++)
+            for (int j = 1; j <= 85; j++)
+            {
+                print(GREEN, "-", false);
+            }
+
+            print(GREEN, "", true);
+            string title[] = {"Room Number",
+                              "beds Number",
+                              "Rent",
+                              "Status"};
+            for (int j = 0; j <= 3; j++)
+            {
+                print(GREEN, "|", false);
+                int q = 20 - title[j].size();
+                if (q % 2 == 0)
+                {
+                    for (int x = 1; x <= (q / 2); x++)
+                    {
+                        print(GREEN, " ", false);
+                    }
+                    print(GREEN, title[j], false);
+                    for (int x = 1; x <= (q / 2); x++)
+                    {
+                        print(GREEN, " ", false);
+                    }
+                }
+                else
+                {
+                    q = 20 - title[j].size() - 1;
+                    for (int x = 1; x <= (q / 2) + 1; x++)
+                    {
+                        print(GREEN, " ", false);
+                    }
+                    print(GREEN, title[j], false);
+                    for (int x = 1; x <= (q / 2); x++)
+                    {
+                        print(GREEN, " ", false);
+                    }
+                }
+            }
+            print(GREEN, "|", true);
+            for (int j = 1; j <= 85; j++)
+            {
+                print(GREEN, "-", false);
+            }
+
+            print(GREEN, "", true);
+            for (int i = 0; i <= dataSize - 1; i++)
             {
                 if (data[i][BEDS_NUMBER] == reds_number && data[i][STATUS] == status)
                 {
-                    num++;
-                    print(YELLOY, "=================================================");
-                    print(YELLOY, "Room Number : " + NumberToString(data[i][ROOM_NUMBER]));
-                    print(YELLOY, "Beds Number : " + NumberToString(data[i][BEDS_NUMBER]));
-                    print(YELLOY, "Rent : " + NumberToString(data[i][RENT]));
-                    if (data[i][STATUS] == 1)
+                    for (int j = 0; j <= 3; j++)
                     {
-                        print(YELLOY, "status : Free ");
-                    }
-                    else if (data[i][STATUS] == 2)
-                    {
-                        print(YELLOY, "status : Rented");
-                    }
-                    else if (data[i][STATUS] == 3)
-                    {
-                        print(YELLOY, "status : Reserved");
-                    }
+                        string content;
+                        switch (j)
+                        {
+                        case 0:
+                            content = NumberToString(data[i][ROOM_NUMBER]);
+                            break;
+                        case 1:
+                            content = NumberToString(data[i][BEDS_NUMBER]);
+                            break;
+                        case 2:
+                            content = NumberToString(data[i][RENT]);
+                            break;
+                        case 3:
 
-                    print(YELLOY, "=================================================");
+                            if (data[i][STATUS] == 1)
+                            {
+                                content = "Free ";
+                            }
+                            else if (data[i][STATUS] == 2)
+                            {
+                                content = "Rented";
+                            }
+                            else if (data[i][STATUS] == 3)
+                            {
+                                content = "Reserved";
+                            }
+                            break;
+                        }
+                        print(GREEN, "|", false);
+                        int q = 20 - content.size();
+                        if (q % 2 == 0)
+                        {
+                            for (int x = 1; x <= (q / 2); x++)
+                            {
+                                print(GREEN, " ", false);
+                            }
+                            print(GREEN, content, false);
+                            for (int x = 1; x <= (q / 2); x++)
+                            {
+                                print(GREEN, " ", false);
+                            }
+                        }
+                        else
+                        {
+                            q = 20 - content.size() - 1;
+                            for (int x = 1; x <= (q / 2) + 1; x++)
+                            {
+                                print(GREEN, " ", false);
+                            }
+                            print(GREEN, content, false);
+                            for (int x = 1; x <= (q / 2); x++)
+                            {
+                                print(GREEN, " ", false);
+                            }
+                        }
+                    }
+                    print(GREEN, "|", true);
                 }
             }
-            if (num == 0)
+            for (int j = 1; j <= 85; j++)
             {
-                print(RED, "No match found");
+                print(GREEN, "-", false);
             }
+
+            print(GREEN, "", true);
+            
         }
     }
     else if (status >= 1 && status <= 3)
     {
 
-        for (int i = 0; i <= dataSize-1; i++)
+        for (int j = 1; j <= 85; j++)
+        {
+            print(GREEN, "-", false);
+        }
+
+        print(GREEN, "", true);
+        string title[] = {"Room Number",
+                          "beds Number",
+                          "Rent",
+                          "Status"};
+        for (int j = 0; j <= 3; j++)
+        {
+            print(GREEN, "|", false);
+            int q = 20 - title[j].size();
+            if (q % 2 == 0)
+            {
+                for (int x = 1; x <= (q / 2); x++)
+                {
+                    print(GREEN, " ", false);
+                }
+                print(GREEN, title[j], false);
+                for (int x = 1; x <= (q / 2); x++)
+                {
+                    print(GREEN, " ", false);
+                }
+            }
+            else
+            {
+                q = 20 - title[j].size() - 1;
+                for (int x = 1; x <= (q / 2) + 1; x++)
+                {
+                    print(GREEN, " ", false);
+                }
+                print(GREEN, title[j], false);
+                for (int x = 1; x <= (q / 2); x++)
+                {
+                    print(GREEN, " ", false);
+                }
+            }
+        }
+        print(GREEN, "|", true);
+        for (int j = 1; j <= 85; j++)
+        {
+            print(GREEN, "-", false);
+        }
+
+        print(GREEN, "", true);
+        for (int i = 0; i <= dataSize - 1; i++)
         {
             if (data[i][STATUS] == status)
             {
-                num++;
-                print(YELLOY, "=================================================");
-                print(YELLOY, "Room Number : " + NumberToString(data[i][ROOM_NUMBER]));
-                print(YELLOY, "Beds Number : " + NumberToString(data[i][BEDS_NUMBER]));
-                print(YELLOY, "Rent : " + NumberToString(data[i][RENT]));
-                if (data[i][STATUS] == 1)
-                {
-                    print(YELLOY, "status : Free ");
-                }
-                else if (data[i][STATUS] == 2)
-                {
-                    print(YELLOY, "status : Rented");
-                }
-                else if (data[i][STATUS] == 3)
-                {
-                    print(YELLOY, "status : Reserved");
-                }
 
-                print(YELLOY, "=================================================");
+                for (int j = 0; j <= 3; j++)
+                {
+                    string content;
+                    switch (j)
+                    {
+                    case 0:
+                        content = NumberToString(data[i][ROOM_NUMBER]);
+                        break;
+                    case 1:
+                        content = NumberToString(data[i][BEDS_NUMBER]);
+                        break;
+                    case 2:
+                        content = NumberToString(data[i][RENT]);
+                        break;
+                    case 3:
+
+                        if (data[i][STATUS] == 1)
+                        {
+                            content = "Free ";
+                        }
+                        else if (data[i][STATUS] == 2)
+                        {
+                            content = "Rented";
+                        }
+                        else if (data[i][STATUS] == 3)
+                        {
+                            content = "Reserved";
+                        }
+                        break;
+                    }
+                    print(GREEN, "|", false);
+                    int q = 20 - content.size();
+                    if (q % 2 == 0)
+                    {
+                        for (int x = 1; x <= (q / 2); x++)
+                        {
+                            print(GREEN, " ", false);
+                        }
+                        print(GREEN, content, false);
+                        for (int x = 1; x <= (q / 2); x++)
+                        {
+                            print(GREEN, " ", false);
+                        }
+                    }
+                    else
+                    {
+                        q = 20 - content.size() - 1;
+                        for (int x = 1; x <= (q / 2) + 1; x++)
+                        {
+                            print(GREEN, " ", false);
+                        }
+                        print(GREEN, content, false);
+                        for (int x = 1; x <= (q / 2); x++)
+                        {
+                            print(GREEN, " ", false);
+                        }
+                    }
+                }
+                print(GREEN, "|", true);
+                // for (int j = 1; j <= 85; j++)
+                // {
+                //     print(GREEN, "-", false);
+                // }
+
+                // print(GREEN, "", true);
             }
         }
-        if (num == 0)
+        for (int j = 1; j <= 85; j++)
         {
-            print(RED, "No match found");
+            print(GREEN, "-", false);
         }
+
+        print(GREEN, "", true);
+        
     }
     else if (status == STATUS_ALL)
     {
-        for (int i = 0; i <= dataSize -1; i++)
+        for (int j = 1; j <= 85; j++)
         {
-
-            print(YELLOY, "=================================================");
-            print(YELLOY, "Room Number : " + NumberToString(data[i][ROOM_NUMBER]));
-            print(YELLOY, "Beds Number : " + NumberToString(data[i][BEDS_NUMBER]));
-            print(YELLOY, "Rent : " + NumberToString(data[i][RENT]));
-            if (data[i][STATUS] == 1)
-            {
-                print(YELLOY, "status : Free ");
-            }
-            else if (data[i][STATUS] == 2)
-            {
-                print(YELLOY, "status : Rented");
-            }
-            else if (data[i][STATUS] == 3)
-            {
-                print(YELLOY, "status : Reserved");
-            }
-
-            print(YELLOY, "=================================================");
+            print(GREEN, "-", false);
         }
+
+        print(GREEN, "", true);
+        string title[] = {"Room Number",
+                          "beds Number",
+                          "Rent",
+                          "Status"};
+        for (int j = 0; j <= 3; j++)
+        {
+            print(GREEN, "|", false);
+            int q = 20 - title[j].size();
+            if (q % 2 == 0)
+            {
+                for (int x = 1; x <= (q / 2); x++)
+                {
+                    print(GREEN, " ", false);
+                }
+                print(GREEN, title[j], false);
+                for (int x = 1; x <= (q / 2); x++)
+                {
+                    print(GREEN, " ", false);
+                }
+            }
+            else
+            {
+                q = 20 - title[j].size() - 1;
+                for (int x = 1; x <= (q / 2) + 1; x++)
+                {
+                    print(GREEN, " ", false);
+                }
+                print(GREEN, title[j], false);
+                for (int x = 1; x <= (q / 2); x++)
+                {
+                    print(GREEN, " ", false);
+                }
+            }
+        }
+        print(GREEN, "|", true);
+        for (int j = 1; j <= 85; j++)
+        {
+            print(GREEN, "-", false);
+        }
+
+        print(GREEN, "", true);
+        for (int i = 0; i <= dataSize - 1; i++)
+        {
+            for (int j = 0; j <= 3; j++)
+            {
+                string content;
+                switch (j)
+                {
+                case 0:
+                    content = NumberToString(data[i][ROOM_NUMBER]);
+                    break;
+                case 1:
+                    content = NumberToString(data[i][BEDS_NUMBER]);
+                    break;
+                case 2:
+                    content = NumberToString(data[i][RENT]);
+                    break;
+                case 3:
+
+                    if (data[i][STATUS] == 1)
+                    {
+                        content = "Free ";
+                    }
+                    else if (data[i][STATUS] == 2)
+                    {
+                        content = "Rented";
+                    }
+                    else if (data[i][STATUS] == 3)
+                    {
+                        content = "Reserved";
+                    }
+                    break;
+                }
+                print(GREEN, "|", false);
+                int q = 20 - content.size();
+                if (q % 2 == 0)
+                {
+                    for (int x = 1; x <= (q / 2); x++)
+                    {
+                        print(GREEN, " ", false);
+                    }
+                    print(GREEN, content, false);
+                    for (int x = 1; x <= (q / 2); x++)
+                    {
+                        print(GREEN, " ", false);
+                    }
+                }
+                else
+                {
+                    q = 20 - content.size() - 1;
+                    for (int x = 1; x <= (q / 2) + 1; x++)
+                    {
+                        print(GREEN, " ", false);
+                    }
+                    print(GREEN, content, false);
+                    for (int x = 1; x <= (q / 2); x++)
+                    {
+                        print(GREEN, " ", false);
+                    }
+                }
+            }
+            print(GREEN, "|", true);
+            // for (int j = 1; j <= 85; j++)
+            // {
+            //     print(GREEN, "-", false);
+            // }
+
+            // print(GREEN, "", true);
+        }
+        for (int j = 1; j <= 85; j++)
+        {
+            print(GREEN, "-", false);
+        }
+
+        print(GREEN, "", true);
     }
 }
 
@@ -178,13 +470,13 @@ void roomRental(int number_people)
         try
         {
 
-            print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
-            print(CYAN, "+*                  Room rental                *+");
-            print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
+            print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+            print(CYAN, "*                   Room rental                 *", true);
+            print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
             serchRoom(-1, number_people, STATUS_FREE);
-            print(GREEN, "[h] Home Page");
-            print(GREEN, "[e] EXIT");
-            print(MAGENTA, "Please enter the number of Room");
+            print(GREEN, "[h] Home Page", true);
+            print(GREEN, "[e] EXIT", true);
+            print(MAGENTA, "Please enter the number of Room", true);
             string S_room_number;
             cin >> S_room_number;
             if (S_room_number == "h")
@@ -200,27 +492,27 @@ void roomRental(int number_people)
             int room_number = stoi(S_room_number);
             if (room_number < 1 || room_number > dataSize)
             {
-                print(RED, "Please enter a number greater than 0 and less than " + NumberToString(dataSize) + " or ( e ) to exit or ( h ) to go to home page");
+                print(RED, "Please enter a number greater than 0 and less than " + NumberToString(dataSize) + " or ( e ) to exit or ( h ) to go to home page", true);
             }
             else if (data[room_number - 1][STATUS] != STATUS_FREE)
             {
-                print(RED, "Sorry, the room is occupied");
+                print(RED, "Sorry, the room is occupied", true);
             }
             else if (data[room_number - 1][BEDS_NUMBER] != number_people)
             {
-                print(RED, "The number of beds in this room is " + NumberToString(data[room_number - 1][BEDS_NUMBER]));
+                print(RED, "The number of beds in this room is " + NumberToString(data[room_number - 1][BEDS_NUMBER]), true);
             }
             else
             {
                 data[room_number - 1][STATUS] = STATUS_RENTED;
                 clearConsole();
-                print(YELLOY, "Room " + NumberToString(room_number) + " has been successfully rented out");
+                print(YELLOY, "Room " + NumberToString(room_number) + " has been successfully rented out", true);
                 break;
             }
         }
         catch (...)
         {
-            print(RED, "Please enter a number greater than 0 and less than " + NumberToString(dataSize) + " or ( e ) to exit or ( h ) to go to home page");
+            print(RED, "Please enter a number greater than 0 and less than " + NumberToString(dataSize) + " or ( e ) to exit or ( h ) to go to home page", true);
         }
     }
 }
@@ -232,12 +524,12 @@ void roomRental()
     while (true)
     {
         string S_number_people;
-        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
-        print(CYAN, "+*                  Room rental                *+");
-        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
-        print(GREEN, "[h] Home Page");
-        print(GREEN, "[e] EXIT");
-        print(MAGENTA, "Please enter the number of people");
+        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+        print(CYAN, "*                   Room rental                 *", true);
+        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+        print(GREEN, "[h] Home Page", true);
+        print(GREEN, "[e] EXIT", true);
+        print(MAGENTA, "Please enter the number of people", true);
         cin >> S_number_people;
         if (S_number_people == "h")
         {
@@ -269,13 +561,13 @@ void roomRental()
                 break;
 
             default:
-                print(RED, "Please enter a number greater than 1 and less than 4 or ( e ) to exit or ( h ) to go to home page ");
+                print(RED, "Please enter a number greater than 1 and less than 4 or ( e ) to exit or ( h ) to go to home page ", true);
                 break;
             }
         }
         catch (...)
         {
-            print(RED, "The number of people is incorrect. Please enter a number between 1 and 4 or ( e ) to exit or ( h ) to go to home page");
+            print(RED, "The number of people is incorrect. Please enter a number between 1 and 4 or ( e ) to exit or ( h ) to go to home page", true);
         }
     }
 }
@@ -285,15 +577,15 @@ void evacuateRoom()
     while (true)
     {
         clearConsole();
-        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
-        print(CYAN, "+*                Evacuate a Room              *+");
-        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
-        print(GREEN, "[h] Home Page");
-        print(GREEN, "[e] EXIT");
+        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+        print(CYAN, "*                 Evacuate a Room               *", true);
+        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+        print(GREEN, "[h] Home Page", true);
+        print(GREEN, "[e] EXIT", true);
 
         serchRoom(-1, -1, STATUS_RENTED);
         string S_room_number;
-        print(MAGENTA, "Please enter the number of Room");
+        print(MAGENTA, "Please enter the number of Room", true);
         cin >> S_room_number;
         if (S_room_number == "h")
         {
@@ -312,28 +604,28 @@ void evacuateRoom()
             int room_number = stoi(S_room_number);
             if (room_number < 1 || room_number > dataSize)
             {
-                print(RED, "Please enter a number greater than 0 and less than " + NumberToString(dataSize) + " or ( e ) to exit or ( h ) to go to home page");
+                print(RED, "Please enter a number greater than 0 and less than " + NumberToString(dataSize) + " or ( e ) to exit or ( h ) to go to home page", true);
             }
             else if (data[room_number - 1][STATUS] != STATUS_RENTED)
             {
-                print(RED, "Sorry, room number " + NumberToString(room_number) + " is not rented");
+                print(RED, "Sorry, room number " + NumberToString(room_number) + " is not rented", true);
             }
             else
             {
                 string res;
-                print(MAGENTA, "Are you sure to vacate room number " + NumberToString(room_number) + " ? ( y | n )");
+                print(MAGENTA, "Are you sure to vacate room number " + NumberToString(room_number) + " ? ( y | n )", true);
                 cin >> res;
                 if (res == "y")
                 {
                     data[room_number - 1][STATUS] = STATUS_FREE;
                     clearConsole();
-                    print(YELLOY, "Room " + NumberToString(room_number) + "  has been successfully evacuated");
+                    print(YELLOY, "Room " + NumberToString(room_number) + "  has been successfully evacuated", true);
                 }
             }
         }
         catch (...)
         {
-            print(RED, "Please enter a number greater than 0 and less than " + dataSize);
+            print(RED, "Please enter a number greater than 0 and less than " + dataSize, true);
         }
     }
 }
@@ -343,15 +635,15 @@ void roomReservations()
     while (true)
     {
         clearConsole();
-        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
-        print(CYAN, "+*               Room reservations             *+");
-        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
-        print(GREEN, "[h] Home Page");
-        print(GREEN, "[e] EXIT");
+        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+        print(CYAN, "*                Room reservations              *", true);
+        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+        print(GREEN, "[h] Home Page", true);
+        print(GREEN, "[e] EXIT", true);
 
         serchRoom(-1, -1, STATUS_FREE);
         string S_room_number;
-        print(MAGENTA, "Please enter the number of Room");
+        print(MAGENTA, "Please enter the number of Room", true);
         cin >> S_room_number;
         if (S_room_number == "h")
         {
@@ -368,25 +660,25 @@ void roomReservations()
             int room_number = stoi(S_room_number);
             if (room_number < 1 || room_number > dataSize)
             {
-                print(RED, "Please enter a number greater than 0 and less than " + NumberToString(dataSize) + " or ( e ) to exit or ( h ) to go to home page");
+                print(RED, "Please enter a number greater than 0 and less than " + NumberToString(dataSize) + " or ( e ) to exit or ( h ) to go to home page", true);
             }
             else if (data[room_number - 1][STATUS] != STATUS_FREE)
             {
-                print(RED, "Sorry, the room is occupied");
+                print(RED, "Sorry, the room is occupied", true);
             }
             else
             {
                 data[room_number - 1][STATUS] = STATUS_RESERVED;
                 clearConsole();
-                print(YELLOY, "Room " + NumberToString(room_number) + " has been successfully rented out");
-                print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
-                print(CYAN, "+*               Room reservations             *+");
-                print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
-                print(GREEN, "[Any Key] Home Page");
-                print(GREEN, "[e] EXIT");
-                print(GREEN, "[r] Reserve another room");
+                print(YELLOY, "Room " + NumberToString(room_number) + " has been successfully rented out", true);
+                print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+                print(CYAN, "*                Room reservations              *", true);
+                print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+                print(GREEN, "[Any Key] Home Page", true);
+                print(GREEN, "[e] EXIT", true);
+                print(GREEN, "[r] Reserve another room", true);
                 string input__;
-                print(MAGENTA, "Please select an order");
+                print(MAGENTA, "Please select an order", true);
                 cin >> input__;
                 if (input__ == "r")
                 {
@@ -408,7 +700,7 @@ void roomReservations()
         }
         catch (...)
         {
-            print(RED, "Please enter a number greater than 0 and less than " + NumberToString(dataSize) + " or ( e ) to exit or ( h ) to go to home page");
+            print(RED, "Please enter a number greater than 0 and less than " + NumberToString(dataSize) + " or ( e ) to exit or ( h ) to go to home page", true);
         }
     }
 }
@@ -418,15 +710,15 @@ void releaseReservation()
     while (true)
     {
         clearConsole();
-        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
-        print(CYAN, "+*           Release a room reservation        *+");
-        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
-        print(GREEN, "[h] Home Page");
-        print(GREEN, "[e] EXIT");
+        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+        print(CYAN, "*            Release a room reservation         *", true);
+        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+        print(GREEN, "[h] Home Page", true);
+        print(GREEN, "[e] EXIT", true);
 
         serchRoom(-1, -1, STATUS_RESERVED);
         string S_room_number;
-        print(MAGENTA, "Please enter the number of Room");
+        print(MAGENTA, "Please enter the number of Room", true);
         cin >> S_room_number;
         if (S_room_number == "h")
         {
@@ -445,28 +737,28 @@ void releaseReservation()
             int room_number = stoi(S_room_number);
             if (room_number < 1 || room_number > dataSize)
             {
-                print(RED, "Please enter a number greater than 0 and less than " + NumberToString(dataSize) + " or ( e ) to exit or ( h ) to go to home page");
+                print(RED, "Please enter a number greater than 0 and less than " + NumberToString(dataSize) + " or ( e ) to exit or ( h ) to go to home page", true);
             }
             else if (data[room_number - 1][STATUS] != STATUS_RESERVED)
             {
-                print(RED, "Sorry, room number " + NumberToString(room_number) + " is not reserved");
+                print(RED, "Sorry, room number " + NumberToString(room_number) + " is not reserved", true);
             }
             else
             {
                 string res;
-                print(MAGENTA, "Are you sure to vacate room number " + NumberToString(room_number) + " ? ( y | n )");
+                print(MAGENTA, "Are you sure to vacate room number " + NumberToString(room_number) + " ? ( y | n )", true);
                 cin >> res;
                 if (res == "y")
                 {
                     data[room_number - 1][STATUS] = STATUS_FREE;
                     clearConsole();
-                    print(YELLOY, "Room " + NumberToString(room_number) + "  has been successfully evacuated");
+                    print(YELLOY, "Room " + NumberToString(room_number) + "  has been successfully evacuated", true);
                 }
             }
         }
         catch (...)
         {
-            print(RED, "Please enter a number greater than 0 and less than " + dataSize);
+            print(RED, "Please enter a number greater than 0 and less than " + dataSize, true);
         }
     }
 }
@@ -476,25 +768,25 @@ void showRoomsByStatus(int status)
     clearConsole();
     if (status == STATUS_FREE)
     {
-        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
-        print(CYAN, "+*                  empty rooms                *+");
-        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
+        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+        print(CYAN, "*                   empty rooms                 *", true);
+        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
     }
     else if (status == STATUS_RENTED)
     {
-        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
-        print(CYAN, "+*                 Rented rooms                *+");
-        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
+        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+        print(CYAN, "*                  Rented rooms                 *", true);
+        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
     }
     else if (status == STATUS_RESERVED)
     {
-        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
-        print(CYAN, "+*                Reserved rooms               *+");
-        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
+        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+        print(CYAN, "*                 Reserved rooms                *", true);
+        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
     }
     serchRoom(-1, -1, status);
-    print(GREEN, "[Any Key] Home Page");
-    print(GREEN, "[e] EXIT");
+    print(GREEN, "[Any Key] Home Page", true);
+    print(GREEN, "[e] EXIT", true);
     string input_;
     cin >> input_;
 
@@ -515,18 +807,18 @@ int main()
 
     while (true)
     {
-        clearConsole();
+        // clearConsole();
         HOMEPAGE = false;
         string option;
-        print(GREEN, "[1] Room rental");
-        print(GREEN, "[2] Evacuate a Room");
-        print(GREEN, "[3] Room reservations");
-        print(GREEN, "[4] Release a room reservation");
-        print(GREEN, "[5] Show empty rooms");
-        print(GREEN, "[6] Show rented rooms");
-        print(GREEN, "[7] Show reserved rooms");
-        print(GREEN, "[8] Show the status of all rooms");
-        print(GREEN, "[e] Exit");
+        print(GREEN, "[1] Room rental", true);
+        print(GREEN, "[2] Evacuate a Room", true);
+        print(GREEN, "[3] Room reservations", true);
+        print(GREEN, "[4] Release a room reservation", true);
+        print(GREEN, "[5] Show empty rooms", true);
+        print(GREEN, "[6] Show rented rooms", true);
+        print(GREEN, "[7] Show reserved rooms", true);
+        print(GREEN, "[8] Show the status of all rooms", true);
+        print(GREEN, "[e] Exit", true);
         cin >> option;
         if (option == "e")
         {
@@ -561,11 +853,11 @@ int main()
                 break;
             case 8:
                 clearConsole();
-                print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
-                print(CYAN, "+*              status of all rooms            *+");
-                print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
-                print(GREEN, "[Any Key] Home Page");
-                print(GREEN, "[e] EXIT");
+                print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+                print(CYAN, "*               status of all rooms             *", true);
+                print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+                print(GREEN, "[Any Key] Home Page", true);
+                print(GREEN, "[e] EXIT", true);
                 serchRoom(-1, -1, STATUS_ALL);
 
                 string input__;
@@ -581,7 +873,7 @@ int main()
         }
         catch (...)
         {
-            print(RED, "Please enter a number between 1 and 8 or ( e ) for exit");
+            print(RED, "Please enter a number between 1 and 8 or ( e ) for exit", true);
         }
         if (EXIT)
         {
