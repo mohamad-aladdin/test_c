@@ -646,7 +646,7 @@ void roomRental(int number_people)
             print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
             print(CYAN, "*                   Room rental                 *", true);
             print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
-            serchRoom(-1, number_people, STATUS_FREE);
+            serchRoom( number_people, STATUS_FREE);
             print(GREEN, "[h] Home Page", true);
             print(GREEN, "[e] EXIT", true);
             print(MAGENTA, "Please enter the number of Room", true);
@@ -756,7 +756,7 @@ void evacuateRoom()
         print(GREEN, "[h] Home Page", true);
         print(GREEN, "[e] EXIT", true);
 
-        serchRoom(-1, -1, STATUS_RENTED);
+        serchRoom( -1, STATUS_RENTED);
         string S_room_number;
         print(MAGENTA, "Please enter the number of Room", true);
         cin >> S_room_number;
@@ -814,7 +814,7 @@ void roomReservations()
         print(GREEN, "[h] Home Page", true);
         print(GREEN, "[e] EXIT", true);
 
-        serchRoom(-1, -1, STATUS_FREE);
+        serchRoom(-1, STATUS_FREE);
         string S_room_number;
         print(MAGENTA, "Please enter the number of Room", true);
         cin >> S_room_number;
@@ -889,7 +889,7 @@ void releaseReservation()
         print(GREEN, "[h] Home Page", true);
         print(GREEN, "[e] EXIT", true);
 
-        serchRoom(-1, -1, STATUS_RESERVED);
+        serchRoom( -1, STATUS_RESERVED);
         string S_room_number;
         print(MAGENTA, "Please enter the number of Room", true);
         cin >> S_room_number;
@@ -957,7 +957,7 @@ void showRoomsByStatus(int status)
         print(CYAN, "*                 Reserved rooms                *", true);
         print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
     }
-    serchRoom(-1, -1, status);
+    serchRoom( -1, status);
     print(GREEN, "[Any Key] Home Page", true);
     print(GREEN, "[e] EXIT", true);
     string input_;
@@ -1031,7 +1031,7 @@ int main()
                 print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
                 print(GREEN, "[Any Key] Home Page", true);
                 print(GREEN, "[e] EXIT", true);
-                serchRoom(-1, -1, STATUS_ALL);
+                serchRoom( -1, STATUS_ALL);
 
                 string input__;
                 cin >> input__;
