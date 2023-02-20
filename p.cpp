@@ -14,9 +14,8 @@ string MAGENTA = "\033[1;35m";
 string CYAN = "\033[1;36m";
 string WHITE = "\033[1;37m";
 
-// متغيرات للخروج من البرانامج او العودة الى الصفحة الرئيسية
+//  متغير للخروج من البرنامج
 bool EXIT = false;
-bool HOMEPAGE = false;
 
 // متغيرات تعبر عن موقع العنوان في المصفوفة
 // مثال : للوصول الى حالة غرفة في حال عدم تعريف هذة المتغيرات  يجب علينا فعل التالي
@@ -635,134 +634,291 @@ void serchRoom(int reds_number, int status)
     }
 }
 
+// هي دالة تأجير غرفة الجزء ال 2
+// الجزء الاول تحت بلشي بجزء الاول
+// بعدين الجزء التاني
+
+// هي الدالة منعطيها عدد الاشخاص بعد ما نكون تأكدنا انو عدد الاشخاص مقبول
 void roomRental(int number_people)
 {
+    // منمسح كل شي مكتوب
     clearConsole();
+    // حلقة لللانهاية مشروحة بجزء الاول اذا ما فهمتيها بشرحلك ياها وتس اب
     while (true)
     {
+        // معالجة اخطاء مشروحة بجزء الاول
         try
         {
-
+            // هون مرجع منكتب العنوان
             print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
             print(CYAN, "*                   Room rental                 *", true);
             print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
-            serchRoom( number_people, STATUS_FREE);
-            print(GREEN, "[h] Home Page", true);
+
+            // هي الدالة شرحتا فوق
+            // هون بطلب منا تطبعلي كل الغرف الفارغة الموجود فيها عدد اسرة بساوي عدد الاسرة لدخلو المستخدم
+            serchRoom(number_people, STATUS_FREE);
+
+            // هون بطبع الخيارات فينا نرجع نغير عدد الاسرة وفينا نطلع من البرنامج
+            print(GREEN, "[h] BACK", true);
             print(GREEN, "[e] EXIT", true);
             print(MAGENTA, "Please enter the number of Room", true);
+
+            // هون منجيب البيانات لدخلها المستخدم ونتأكد منا متل الجزء الاول
+            // هون البيانات بتعبر عن رقم الغرفة
             string S_room_number;
             cin >> S_room_number;
             if (S_room_number == "h")
             {
-                HOMEPAGE = true;
+                // هون ما حطينا كلمة
+                // break
+                // لانو نحنا ما بدنا ترجع الحلقة تعيد حالها مرا تانيه
+                // هون نحنا منكون بدنا نتراجع عن خيار خطء صار مع المستخدم
+                // يعني المستخدم اجا لعندو 3 اشخاص وقالولو بدنا نستأجر غرفة بعد ما ادخل رقم 3 مشان
+                // يأجر غرفة فيها 3 اسرة قالولو لا نحنا 4 اشخاص في شخص فات ع الحمام
+                // بهي الحالة لازم نرجع نغير عدد الاشخاص صح ؟؟؟
+                // لهيك منخلي الدالة توقف
+
+                /*
+                ملاحظة كلمة
+                البرنامج بس يوصل لعند اول كلمة
+                return
+                بوقف الدالة ما بنفز باقي الاوامر المحطوطة بدالة
+                */
                 return;
             }
+            // هون اذا بدو يطلع من البرنامج منوقف الدالة كلا ومنغير الخروج ل صحيح
+            // باخر الجزء الاول في شرط بيفحص قيمة الخروح اذا صح بيووقف الحلقة
             else if (S_room_number == "e")
             {
                 EXIT = true;
                 return;
             }
+            // هون حولانا النص لرقم
+            // ملاحظة بس يدخلك بيانات من المستخدم بتدخل  كنص يعني
+            // string
+            // ولو دخل رقم بيوصل لعندك نص يعني اذا دخل 1 بيوصل لعنا "1" هيك
             int room_number = stoi(S_room_number);
+            // هون منشوف انو رقم الغرفي اصغر من 0 و اكبر  من عدد عناصر الداتا لعنا
+            // هون بكون في خط مافيني اجر غرفة رقمها -1
+            // او 134 لانو انا عندي بس 20غرفة
+            // لهيك اذا تحقق الشرط بطبع خطء وما بوقف الحلقة بخليها تعيد حالها وتطلب منو يدخل رقم غرفة صحيح طيعا هادا الحكي لللانهاية
             if (room_number < 1 || room_number > dataSize)
             {
                 print(RED, "Please enter a number greater than 0 and less than " + NumberToString(dataSize) + " or ( e ) to exit or ( h ) to go to home page", true);
             }
+            // هون بشوف رقم الغرفة لدخلها المستخدم اذا ما كانت حالتها فارغة بقلو انو الغرفة مشغولة
+            // data[room_number -1 ]
+            // ليش ما قلنا
+            // data[room_number]
+            // لانو نحنا مسميين الغرف من 1 الى 20
+            // بس الكود بيحفظن من 0 الى 19
+            // لانو المصفوفة بتبلش تخزين من 0
+            // يعني الغرفة رقم 1 موقعها بلمصفوفة هو 0 وموقهعا بقصد في ال
+            // index
             else if (data[room_number - 1][STATUS] != STATUS_FREE)
             {
                 print(RED, "Sorry, the room is occupied", true);
             }
+            // هون بتحقق كمان انو الغرفة لدخلها المستخدم عدد الاسرة فيها اذا ما بساوي عدد الاشخاص بطبعلو خط
+
             else if (data[room_number - 1][BEDS_NUMBER] != number_people)
             {
                 print(RED, "The number of beds in this room is " + NumberToString(data[room_number - 1][BEDS_NUMBER]), true);
             }
+            // هون اذا ما تحقق ولا شرط يعني
+            // رقم الغرفة صحيح
+            // الغرفة فارغة
+            // عدد السرة بلغرفي بساوي عدد الشخاص
             else
             {
+                // هون عدلنا ع بيانات الغرفة وخلينا حالتها مأجرة
                 data[room_number - 1][STATUS] = STATUS_RENTED;
+                // بعدين مسحنا كل شي مكتوب
                 clearConsole();
+                // وبهدين طبعنا انو تم حجز الغرفة رقم كذا بنجاح
                 print(YELLOY, "Room " + NumberToString(room_number) + " has been successfully rented out", true);
                 break;
             }
         }
         catch (...)
         {
+            // هون اذا دخل حرف بدال ما يدخل رقم منقلو انو لازم دخل رقم من 1 الى 20
             print(RED, "Please enter a number greater than 0 and less than " + NumberToString(dataSize) + " or ( e ) to exit or ( h ) to go to home page", true);
         }
     }
 }
 
+//  هي الدالة لتاجير غرفة الجزء 1
 void roomRental()
 {
+    // اول شي لحنمسح كل شي مكتوب قديم
     clearConsole();
-
+    // هي الحاقة بتلف لللانهاية
     while (true)
     {
+        // اول شي منعرف متغير مشان نخزن في القيمة لبدو يدخلها المستخدم
         string S_number_people;
+        // هون طبعنا عنوان الصفحة
         print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
         print(CYAN, "*                   Room rental                 *", true);
         print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+
+        // هون طبعنا الخيارات لعنا
         print(GREEN, "[h] Home Page", true);
         print(GREEN, "[e] EXIT", true);
         print(MAGENTA, "Please enter the number of people", true);
+
+        // هون بوقف البرنامج وبينطر من المستخدم يدخل بيانات
         cin >> S_number_people;
+
+        // هون منتحقق من البيانات
+        // اذا دخل حرف ال
+        // h
+
         if (S_number_people == "h")
         {
-            HOMEPAGE = true;
+            // هادا الكود بوقف الحلقة وبس توقف الحلقة بتكون خلصة الدالة
             break;
         }
+
+        // او اذا دخل حرف ال
+        // e
+
         else if (S_number_people == "e")
         {
+            // هون منخلي المتغير لعرفنا للخروج من البرنامج قيمتو صحيحة
+            // ومنوقف الحلقة
+            // هلق بس توقف الحلقة بترجع ع القائمة الرئيسية
+            // بلقائمة الرئيسية في حلقة لللانهاية كمان بس كل لفة بتتأكد من قيمة المتغير الخروج اذا قيمتو صحيحة بتطلع من البرنامج
+            // اذا خاطء بتمسح كل شي قبلا وبترجع بتطبع مكونات الشاشة الرئيسية
             EXIT = true;
             break;
         }
 
-        try
+        // هون اذا المستخدم ما دخل واحد من الحرفين
+        // بهي الحالة بكون بدو يدخل عدد الاشخاص أو بكون كاتب حرف مو مجود بلقائمة
+        // مثلا بجوز يدخل حرف
+        // q
+        // بهي الحالة لازمن نعطي خطء للمستخدم انو البيانات غير صحيحة ونرجع نطلب منو يدخل بيانات صحيحة
+        // جزء انو نرجع  نطلب منو بيانات صحيحة هادا شغلت الحلقة لخليناها تلف لللاناية
+        // يعني اذا المستخدم ضل يدخل بيانات غلط للانهاية نحنا منضل نقلو انو بياناتك غلط دخل بيانات صح
+        // لو كنا عاملي حلقة فور عادية وعاطينا عدد لفات 100 مثلا كان البرنامج بيستقبل من المستخدم 100 خطء
+        // بعدين بضوج منو وبقلعو
+        else
         {
-            int number_people = stoi(S_number_people);
-            switch (number_people)
-            {
-            case 1:
-                roomRental(number_people);
-                break;
-            case 2:
-                roomRental(number_people);
-                break;
-            case 3:
-                roomRental(number_people);
-                break;
-            case 4:
-                roomRental(number_people);
-                break;
+            // هون كتبتلك تلخيص لجملة ال
+            // try catch
+            // اذا عنا كود شاكين انو يصير في غلط يوقف البرنامج
+            // منحطو بقلب جملة
+            // try
+            // اذا صار الخطء ما بيوقف البرنامج بس بشغل الكود لموجود بجملة ال
+            // catch
 
-            default:
-                print(RED, "Please enter a number greater than 1 and less than 4 or ( e ) to exit or ( h ) to go to home page ", true);
-                break;
+            // نحنا ستخدمناها هون لانو بدنا نحول البيانات لبدخلها المستخدم لرقم
+            // اذا فترضنا انو المستخدم بدال ما يدخل عدد السرة 3 دخل حرف
+            // x
+            // نحنا بهي الحالة لح ناخد حرف الأكس ونحولو لرقم واكيد لحيعطينا خطء ويوقف البرنامج
+            // بس بما انو نحنا حاطين الكود بجملة
+            // try
+            // ما لحيوقف البرنامج بس لح يشغل الكود الموجود بجملة
+            // catch
+
+            /*
+            try
+            {
+                // Protected Code
+                // هنا نكتب الأوامر التي قد تسبب إستثناء
+            }
+            catch(ExceptionType e)
+            {
+                // Error Handling Code
+                // برمي إستثناء try هنا نكتب أوامر تحدد للبرنامج ماذا يفعل إذا قامت الـ
+            }
+
+            */
+            try
+            {
+                // عرفا متغير بعبر عنن عدد الاسرة كعدد وبحول البيانات لدخلها المستخدم لعدد
+                // اذا المستحدم دخل نص ما بصير خطء بلبرنامج بس بشغل جملة
+                // catch
+                // هادا الشي اسمو معالجة الاخطاء
+                int number_people = stoi(S_number_people);
+
+                // هون منشوف الرقم لدخلو المستخدم
+                // اذا كان 1 او 2 او 3 او 4
+                // منشغل الدالة لعرفناها فوق لهي المرلة التانية من تأجير غرفة
+
+                switch (number_people)
+                {
+                case 1:
+                    roomRental(number_people);
+                    break;
+                case 2:
+                    roomRental(number_people);
+                    break;
+                case 3:
+                    roomRental(number_people);
+                    break;
+                case 4:
+                    roomRental(number_people);
+                    break;
+                // هادا الجزء من الكود بيشتغل اذا ما تحققت ولا حالة من ليحاطينا فوق
+
+                // يعني بجوز المستخدم يتحيون ويدخل -1 او 20 بهي الحالة ما لحبصير خط لانو هو ارقام
+                // لهيك قلنا هون انو اذا الرقم لدخلو المستخدم غير الاربع ارقام لمتوقعينا نحنا
+                // منطبعلو خطئ
+                default:
+                    print(RED, "Please enter a number greater than 1 and less than 4 or ( e ) to exit or ( h ) to go to home page ", true);
+                    break;
+                }
+            }
+            // هي جملة ما حددنالا خطء محدد ال 3 نقط يعني اي خطء بصير بجملة
+            // try
+            // شغل هادا الكود
+            catch (...)
+            {
+                print(RED, "The number of people is incorrect. Please enter a number between 1 and 4 or ( e ) to exit or ( h ) to go to home page", true);
             }
         }
-        catch (...)
+        // هون اذا كانت خيمة الخروج صحيحة منطلع من الحلقة
+        if (EXIT)
         {
-            print(RED, "The number of people is incorrect. Please enter a number between 1 and 4 or ( e ) to exit or ( h ) to go to home page", true);
+
+            break;
         }
     }
 }
 
+// فك تأجير  غرفة
 void evacuateRoom()
 {
+    // حلقة لانهاية مشان اذا دخلنا بيانات غلط
     while (true)
     {
+        // مسحنا كل شي
         clearConsole();
+        // طبعنا عنوان
         print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
         print(CYAN, "*                 Evacuate a Room               *", true);
         print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+
+        // طبعنا الخيارات
         print(GREEN, "[h] Home Page", true);
         print(GREEN, "[e] EXIT", true);
 
-        serchRoom( -1, STATUS_RENTED);
+        // هي الدالة بتطبعلنا كل الغرف لحالتها مأجرة و -1 يعني مو مهم عدد الاسرة بلغرفي
+        // يعني تطبعلي اي غرفة مأجرة قد ما كان عدد الاسرة فيها
+
+        serchRoom(-1, STATUS_RENTED);
+
+        // اخدنا البيانات وتاكدنا اذا المستخدم بدو يرحع ع الصفحة الرئيسية منرجعو
+        // واذا بدو يخرج من البرنامج منقلعو
+
         string S_room_number;
         print(MAGENTA, "Please enter the number of Room", true);
         cin >> S_room_number;
         if (S_room_number == "h")
         {
-            HOMEPAGE = true;
             break;
         }
         else if (S_room_number == "e")
@@ -773,8 +929,12 @@ void evacuateRoom()
 
         try
         {
-
+            // هون اذا المستخدم دخل رقم غرفة
             int room_number = stoi(S_room_number);
+            // نفس الشروط لحطيناهن بدالة تأجير غرفة الجزء 2
+            // منتحقق انو الرقم مانو اصغر من الصفر ولا اكبرمن 20
+            // وانو حالة الغرفة المطلعوب فك تأجيرا هي ماجرة بلاصل
+            // مشان ما نفك تأجير غرفة وهي بلاصل فارغة
             if (room_number < 1 || room_number > dataSize)
             {
                 print(RED, "Please enter a number greater than 0 and less than " + NumberToString(dataSize) + " or ( e ) to exit or ( h ) to go to home page", true);
@@ -785,6 +945,14 @@ void evacuateRoom()
             }
             else
             {
+                // هون بعد ما تحققنا انو كل شي تمام
+                // منسال المستخدم هل انت متأكد من فك تأجير الغرفة رقم كذا
+                // اذا دخل حرف
+                // y
+                // منغير حالة الغرفة من مأجورة الى فارغة
+                // اذا كبس اي حرف غير حرف
+                // y
+                // ما بصير شي
                 string res;
                 print(MAGENTA, "Are you sure to vacate room number " + NumberToString(room_number) + " ? ( y | n )", true);
                 cin >> res;
@@ -798,6 +966,7 @@ void evacuateRoom()
         }
         catch (...)
         {
+            // هون اذا حرف بدال رقم الغرفة
             print(RED, "Please enter a number greater than 0 and less than " + NumberToString(dataSize), true);
         }
     }
@@ -820,7 +989,6 @@ void roomReservations()
         cin >> S_room_number;
         if (S_room_number == "h")
         {
-            HOMEPAGE = true;
             break;
         }
         else if (S_room_number == "e")
@@ -866,7 +1034,6 @@ void roomReservations()
                 }
                 else
                 {
-                    HOMEPAGE = true;
                     break;
                 }
             }
@@ -889,13 +1056,12 @@ void releaseReservation()
         print(GREEN, "[h] Home Page", true);
         print(GREEN, "[e] EXIT", true);
 
-        serchRoom( -1, STATUS_RESERVED);
+        serchRoom(-1, STATUS_RESERVED);
         string S_room_number;
         print(MAGENTA, "Please enter the number of Room", true);
         cin >> S_room_number;
         if (S_room_number == "h")
         {
-            HOMEPAGE = true;
             break;
         }
         else if (S_room_number == "e")
@@ -957,7 +1123,7 @@ void showRoomsByStatus(int status)
         print(CYAN, "*                 Reserved rooms                *", true);
         print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
     }
-    serchRoom( -1, status);
+    serchRoom(-1, status);
     print(GREEN, "[Any Key] Home Page", true);
     print(GREEN, "[e] EXIT", true);
     string input_;
@@ -970,7 +1136,6 @@ void showRoomsByStatus(int status)
     }
     else
     {
-        HOMEPAGE = true;
         return;
     }
 }
@@ -981,7 +1146,6 @@ int main()
     while (true)
     {
         // clearConsole();
-        HOMEPAGE = false;
         string option;
         print(GREEN, "[1] Room rental", true);
         print(GREEN, "[2] Evacuate a Room", true);
@@ -1031,7 +1195,7 @@ int main()
                 print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
                 print(GREEN, "[Any Key] Home Page", true);
                 print(GREEN, "[e] EXIT", true);
-                serchRoom( -1, STATUS_ALL);
+                serchRoom(-1, STATUS_ALL);
 
                 string input__;
                 cin >> input__;
