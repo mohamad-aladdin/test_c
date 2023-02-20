@@ -972,18 +972,25 @@ void evacuateRoom()
     }
 }
 
+// حجز غرفة
 void roomReservations()
 {
+    // حلقة لانهاية مشان اذا دخلنا بيانات غلط
     while (true)
     {
+        // مسح الكل كشي مكتوب
         clearConsole();
+        // طلاعة عنوانجديد للصفحة
         print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
         print(CYAN, "*                Room reservations              *", true);
         print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+        // طباعة الخيارات
         print(GREEN, "[h] Home Page", true);
         print(GREEN, "[e] EXIT", true);
 
+        // طباعة الغرف الفارغة
         serchRoom(-1, STATUS_FREE);
+        // استقبال بيانات من المستخدم وناكد منها
         string S_room_number;
         print(MAGENTA, "Please enter the number of Room", true);
         cin >> S_room_number;
@@ -996,8 +1003,11 @@ void roomReservations()
             EXIT = true;
             break;
         }
+
         try
         {
+            // التاكد من الرقم المدخل اذا كان يطابق الشروط
+            // هادا الحكيكلو مشروح بتفصيل بدالة تأجير غرفة
             int room_number = stoi(S_room_number);
             if (room_number < 1 || room_number > dataSize)
             {
@@ -1009,12 +1019,22 @@ void roomReservations()
             }
             else
             {
+                // هون منغير حالة الغرفة لمحجوزة
                 data[room_number - 1][STATUS] = STATUS_RESERVED;
+                // منمسح كل شي مكتوب
+
                 clearConsole();
+                // منكتب انو تم حجز الغرفة كذا بنجاح
                 print(YELLOY, "Room " + NumberToString(room_number) + " has been successfully rented out", true);
+                // مطبع العنان من جديد
                 print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
                 print(CYAN, "*                Room reservations              *", true);
                 print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+                // منطبع خيارات جديدة
+                // اذا بدك ترجع ع الصفحة الرئيسية اضغط اي زر
+                // بدك تخرج من البرنامج اضغط حرف e
+                // بدك تحجز غرفة تاني اضغط r
+                // بعدين منشوف المستخدم شو دخل
                 print(GREEN, "[Any Key] Home Page", true);
                 print(GREEN, "[e] EXIT", true);
                 print(GREEN, "[r] Reserve another room", true);
@@ -1023,9 +1043,10 @@ void roomReservations()
                 cin >> input__;
                 if (input__ == "r")
                 {
-
+                    // هيدي الكلمة بتعني تخطي
+                    // يعني بس يوصل لعندا الكود ما عاد يكفي قراءة الكود لتحتا
+                    // بس يشوفا بيتخطى هي الفتلة من الحلقة
                     continue;
-                    ;
                 }
                 else if (input__ == "e")
                 {
@@ -1045,6 +1066,10 @@ void roomReservations()
     }
 }
 
+// هي دالة فك حجز غرفة
+// ما لحبشرحها لانو ناسخها من فك تأجير غرفة
+// مع شوية تعديلات
+// اذا في شي ما فهمتي فيها بعتيلي بشرحلك يا
 void releaseReservation()
 {
     while (true)
@@ -1102,9 +1127,13 @@ void releaseReservation()
     }
 }
 
+// هي الدالة بتطبع الغرف بنسبة للحالة
+// منستخدمها بلخيار 5و6و7و8 بلقائمة الرئيسية
 void showRoomsByStatus(int status)
 {
+    // منمسحكل شي
     clearConsole();
+    // هون لحنطبع عنوان بس بشرط بيعتمد ع الحالة المدخلة
     if (status == STATUS_FREE)
     {
         print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
@@ -1123,7 +1152,17 @@ void showRoomsByStatus(int status)
         print(CYAN, "*                 Reserved rooms                *", true);
         print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
     }
+    else if (status == STATUS_ALL)
+    {
+        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+        print(CYAN, "*               status of all rooms             *", true);
+        print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
+    }
+
+    // هون منطبع بيانات الغرف الفيهن نفس الحالة
     serchRoom(-1, status);
+    // هون طبعنا خيارات
+    // وتاكدنا منو
     print(GREEN, "[Any Key] Home Page", true);
     print(GREEN, "[e] EXIT", true);
     string input_;
@@ -1139,13 +1178,15 @@ void showRoomsByStatus(int status)
         return;
     }
 }
-
+// هي الدالة الرئيسية بلبرنامج هي اول دالة بتشتغل بس نشغل الكود
 int main()
 {
-
+    // حلقة لللانهاية
     while (true)
     {
+        // منمسح كل شي مكتوب
         // clearConsole();
+        // منطبع الخيارات
         string option;
         print(GREEN, "[1] Room rental", true);
         print(GREEN, "[2] Evacuate a Room", true);
@@ -1157,61 +1198,69 @@ int main()
         print(GREEN, "[8] Show the status of all rooms", true);
         print(GREEN, "[e] Exit", true);
         cin >> option;
+        // اذا دخل حرف
+        // e
+        // منوقف الحلقة
         if (option == "e")
         {
             EXIT = true;
             break;
         }
+        // اذا دخل غير شي
         try
         {
             int n_option = stoi(option);
+            // هون لحنشوف شو دخل المستخدم
             switch (n_option)
             {
+
+            // اذا دخل 1 منستدعي دالة تأجير غرفة
             case 1:
                 roomRental();
                 break;
+
+            // اذا 2 منستدعي دالة فك تأجير غرفة
             case 2:
                 evacuateRoom();
                 break;
+
+            // اذا دخل 3 منستدعي دالة حجز غرفة
             case 3:
                 roomReservations();
                 break;
+
+            // اذا دخل 4 منستدعي دالة فك حجز غرفة  غرفة
             case 4:
                 releaseReservation();
                 break;
+
+            // اذا 5 منستدعي دالة عرض الغرف ومنعطيها انو بدنا الغرف الفارغة
             case 5:
-                showRoomsByStatus(1);
+                showRoomsByStatus(STATUS_FREE);
                 break;
+
+            // اذا 6 منستدعي دالة عرض الغرف ومنعطيها انو بدنا الغرف المأجرة
             case 6:
-                showRoomsByStatus(2);
+                showRoomsByStatus(STATUS_RENTED);
                 break;
+
+            // اذا 7 منستدعي دالة عرض الغرف ومنعطيها انو بدنا الغرف المحجوزة
             case 7:
-                showRoomsByStatus(3);
+                showRoomsByStatus(STATUS_RESERVED);
                 break;
+
+            // اذا 8 منستدعي دالة عرض الغرف ومنعطيها انو بدنا كل الغرف  
             case 8:
-                clearConsole();
-                print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
-                print(CYAN, "*               status of all rooms             *", true);
-                print(CYAN, "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*", true);
-                print(GREEN, "[Any Key] Home Page", true);
-                print(GREEN, "[e] EXIT", true);
-                serchRoom(-1, STATUS_ALL);
-
-                string input__;
-                cin >> input__;
-
-                if (input__ == "e")
-                {
-                    EXIT = true;
-                    return 0;
-                }
+                showRoomsByStatus(STATUS_ALL);
                 break;
             }
         }
+        // اذا دخل شي غلط منطبعلو رسالة غلط 
         catch (...)
         {
             print(RED, "Please enter a number between 1 and 8 or ( e ) for exit", true);
         }
+        // هون منتأكد من متغير الخروج أذا كان صحيح منوقف البرنامج 
         if (EXIT)
         {
             break;
